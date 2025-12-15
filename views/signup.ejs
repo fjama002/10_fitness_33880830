@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome to <%= shopName %></title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+
+  <body>
+    <nav class="navigation">
+      <a class="navbutton" href="/">Home</a>
+      <a class="navbutton" href="/gyms">Gyms</a>
+      <a class="navbutton" href="/classes">Classes</a>
+      <a class="navbutton" href="/aboutus">About Us</a>
+      <a class="navbutton" href="/contactus">Contact Us</a>
+      <a class="navbutton" href="/login">Login</a>
+    </nav>
+    <header>
+      <h1>Login</h1>
+    </header>
+    <main>
+      <form>
+        <div>
+          <p>
+            Forename:
+            <input
+              type="text"
+              id="forename"
+              name="forename"
+              placeholder="e.g. Muhammad"
+              required
+            />
+          </p>
+        </div>
+        <div>
+          <p>
+            Surname:
+            <input
+              type="text"
+              id="surname"
+              name="surname"
+              placeholder="e.g. Ali"
+              required
+            />
+          </p>
+        </div>
+        <div>
+          <p>
+            Email:
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="e.g. muhammadali@example.com"
+              required
+            />
+          </p>
+        </div>
+        <div>
+          <p>
+            Username:
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter a username"
+              required
+            />
+          </p>
+        </div>
+        <div>
+          <p>
+            Password:
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+          </p>
+        </div>
+        <div>
+          <p>
+            Confirm Password:
+            <input
+              type="password"
+              id="confirmpassword"
+              name="confirmpassword"
+              placeholder="Confirm your password"
+              required
+            />
+          </p>
+        </div>
+        <div><button type="submit">Login</button></div>
+        <p>Don't have an account? <a href="/signup"></a>Signup</p>
+      </form>
+    </main>
+    <footer>
+      <p>&copy; <%= shopName %> 2025</p>
+      <p>Updated: December 2025</p>
+    </footer>
+  </body>
+</html>

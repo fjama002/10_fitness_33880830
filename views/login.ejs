@@ -1,31 +1,55 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>Welcome to <%= shopName %>
-    </title>
+  <head>
+    <title>Welcome to <%= shopName %></title>
     <link rel="stylesheet" href="/style.css" />
-</head>
+  </head>
 
-<body>
-    <section>
-        <div class="navigation">
-            <a class="navbutton" href="/">Home</a>
-            <a class="navbutton" href="/gyms">Gyms</a>
-            <a class="navbutton" href="/classes">Classes</a>
-            <a class="navbutton" href="/aboutus">About Us</a>
-            <a class="navbutton" href="/contactus">Contact Us</a>
-            <a class="navbutton" href="/login">Login</a>
+  <body>
+    <nav class="navigation">
+      <a class="navbutton" href="/">Home</a>
+      <a class="navbutton" href="/gyms">Gyms</a>
+      <a class="navbutton" href="/classes">Classes</a>
+      <a class="navbutton" href="/aboutus">About Us</a>
+      <a class="navbutton" href="/contactus">Contact Us</a>
+      <a class="navbutton" href="/login">Login</a>
+    </nav>
+    <header>
+      <h1>Signup</h1>
+    </header>
+    <main>
+      <form>
+        <div>
+          <p>
+            Username:
+            <input
+              type="username"
+              id="username"
+              name="username"
+              placeholder="Enter your username"
+              required
+            />
+          </p>
         </div>
-    </section>
-
-    <section>
-
-        <h1>
-            Login
-        </h1>
-
-    </section>
-</body>
-
+        <div>
+          <p>
+            Password:
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+            />
+          </p>
+        </div>
+        <div><button type="submit">Signup</button></div>
+        <p>Don't have an account? <a href="/signup">Signup</a></p>
+      </form>
+    </main>
+    <footer>
+      <p>&copy; <%= shopName %> 2025</p>
+      <p>Updated: December 2025</p>
+    </footer>
+  </body>
 </html>
