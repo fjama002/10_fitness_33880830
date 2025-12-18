@@ -1,6 +1,19 @@
 const ejs = require("ejs");
 const express = require("express");
 const path = require("path");
+const mysql = require("mysql2");
+
+const db = mysql.createPool({
+  host: "localhost",
+  user: "health_fitness_app",
+  password: "qwertyuiop",
+  database: "health_fitness",
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+});
+
+global.db = db;
 
 const app = express();
 

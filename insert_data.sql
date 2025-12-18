@@ -1,0 +1,3 @@
+# Insert the data
+insert if not exists into classes (name, duration_minutes) values ('Cardio', 45), ('Bootcamp', 60), ('Tai Chi', 45), ('Yoga', 60), ('HIIT', 45), ('Boxing', 60);
+insert if not exists into class_schedule (class_id, day_of_week, start_time) values (4, 'Monday', '07:00'), (5, 'Monday', '18:00'), (1, 'Tuesday', '07:00'), (6, 'Tuesday', '18:30'), (3, 'Wednesday', '08:00'), (2, 'Wednesday', '18:00'), (4, 'Thursday', '07:00'), (5, 'Thursday', '18:30'), (1, 'Friday', '07:00'), (2, 'Saturday', '09:00'), (6, 'Saturday', '10:30'), (3, 'Sunday', '10:00');
