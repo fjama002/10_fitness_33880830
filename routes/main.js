@@ -89,7 +89,22 @@ router.get("/aboutus", (req, res) => {
 });
 
 router.get("/contactus", (req, res) => {
-  res.render("contactus.ejs", shopData);
+  res.render("contactus.ejs", {
+    shopName: shopData.shopName,
+    submitted: false,
+  });
+});
+
+router.post("/contactus", (req, res) => {
+  const { name, email, message } = req.body;
+
+  res.render("contactus.ejs", {
+    shopName: shopData.shopName,
+    submitted: true,
+    name,
+    email,
+    message,
+  });
 });
 
 router.get("/login", (req, res) => {
