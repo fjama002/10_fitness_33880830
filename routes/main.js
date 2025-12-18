@@ -9,13 +9,37 @@ router.get("/", (req, res) => {
   res.render("home.ejs", shopData);
 });
 
-router.get("/gyms", (req, res) => {
-  res.render("gyms.ejs", shopData);
+router.get("/gyms", (req, res, next) => {
+  const searchlocations = req.query.searchlocations;
+
+  // Display all locations
+  let sql = `
+    SELECT * FROM locations
+  `;
+
+  const paramaters = [];
+
+  // Search through locations
+  if (searchlocations) {
+    sql += " WHERE LOWER(city) LIKE ?";
+    paramaters.push(`%${searchlocations.toLowerCase()}%`);
+  }
+
+  // Render the page with the data
+  db.query(sql, paramaters, (err, result) => {
+    if (err) return next(err);
+    res.render("gyms.ejs", {
+      shopName: shopData.shopName,
+      gyms: result,
+      searchlocations,
+    });
+  });
 });
 
 router.get("/classes", (req, res, next) => {
   const searchclasses = req.query.searchclasses;
 
+  // Display full weekly schedule
   let sql = `
     SELECT
       c.name,
@@ -26,13 +50,15 @@ router.get("/classes", (req, res, next) => {
     JOIN classes c ON s.class_id = c.class_id
   `;
 
-  const params = [];
+  const paramaters = [];
 
+  // Search through weekly schedule
   if (searchclasses) {
     sql += " WHERE LOWER(c.name) LIKE ?";
-    params.push(`%${searchclasses.toLowerCase()}%`);
+    paramaters.push(`%${searchclasses.toLowerCase()}%`);
   }
 
+  // Ensures weekly schedule is displayed in order of time
   sql += `
     ORDER BY FIELD(s.day_of_week, 
       'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'
@@ -40,7 +66,7 @@ router.get("/classes", (req, res, next) => {
     s.start_time
   `;
 
-  db.query(sql, params, (err, result) => {
+  db.query(sql, paramaters, (err, result) => {
     if (err) {
       console.error(err);
       return res.render("classes.ejs", {
