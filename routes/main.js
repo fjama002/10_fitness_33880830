@@ -92,7 +92,7 @@ router.get("/contactus", (req, res) => {
 });
 
 router.post("/contactus", (req, res) => {
-  const { name, email, message } = req.body;
+  const { name, email, message } = req.sanitize(req.body);
 
   res.render("contactus.ejs", {
     submitted: true,
@@ -115,7 +115,7 @@ router.post(
     check("password").notEmpty().withMessage("Password required"),
   ],
   (req, res) => {
-    const { username, password } = req.body;
+    const { username, password } = req.sanitize(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.render("login.ejs", {
@@ -192,7 +192,9 @@ router.post(
       });
     }
 
-    const { forename, surname, email, username, password, confirmpassword } =
+    const { forename, surname, email, username } =
+      req.sanitize(req.body);
+    const { password, confirmpassword } =
       req.body;
 
     const saltrounds = 10;
