@@ -12,7 +12,11 @@
       <a class="navbutton" href="/classes">Classes</a>
       <a class="navbutton" href="/aboutus">About Us</a>
       <a class="navbutton" href="/contactus">Contact Us</a>
+      <% if (user) { %>
+      <a class="navbutton" href="/logout">Logout</a>
+      <% } else { %>
       <a class="navbutton" href="/login">Login</a>
+      <% } %>
     </nav>
     <header>
       <h1>Classes</h1>

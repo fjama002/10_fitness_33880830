@@ -12,10 +12,18 @@
       <a class="navbutton" href="/classes">Classes</a>
       <a class="navbutton" href="/aboutus">About Us</a>
       <a class="navbutton" href="/contactus">Contact Us</a>
+      <% if (user) { %>
+      <a class="navbutton" href="/logout">Logout</a>
+      <% } else { %>
       <a class="navbutton" href="/login">Login</a>
+      <% } %>
     </nav>
     <header>
-      <h1><%= shopName %></h1>
+      <% if (user) { %>
+      <h1>Welcome <%= user.forename %> to <%= shopName %></h1>
+      <% } else { %>
+      <h1>Welcome to <%= shopName %></h1>
+      <% } %>
     </header>
     <main>
       <p></p>

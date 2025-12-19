@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-
-const shopData = {
-  shopName: "Health & Fitness",
-};
+const bcrypt = require("bcrypt");
+const { check, validationResult } = require("express-validator");
 
 router.get("/", (req, res) => {
-  res.render("home.ejs", shopData);
+  res.render("home.ejs", {
+    user: req.session.user || null,
+  });
 });
 
 router.get("/gyms", (req, res, next) => {
@@ -29,7 +29,6 @@ router.get("/gyms", (req, res, next) => {
   db.query(sql, paramaters, (err, result) => {
     if (err) return next(err);
     res.render("gyms.ejs", {
-      shopName: shopData.shopName,
       gyms: result,
       searchlocations,
     });
@@ -70,14 +69,12 @@ router.get("/classes", (req, res, next) => {
     if (err) {
       console.error(err);
       return res.render("classes.ejs", {
-        shopName: shopData.shopName,
         classes: [],
         searchclasses: searchclasses,
       });
     }
 
     res.render("classes.ejs", {
-      shopName: shopData.shopName,
       classes: result,
       searchclasses: searchclasses,
     });
@@ -85,12 +82,11 @@ router.get("/classes", (req, res, next) => {
 });
 
 router.get("/aboutus", (req, res) => {
-  res.render("aboutus.ejs", shopData);
+  res.render("aboutus.ejs");
 });
 
 router.get("/contactus", (req, res) => {
   res.render("contactus.ejs", {
-    shopName: shopData.shopName,
     submitted: false,
   });
 });
@@ -99,7 +95,6 @@ router.post("/contactus", (req, res) => {
   const { name, email, message } = req.body;
 
   res.render("contactus.ejs", {
-    shopName: shopData.shopName,
     submitted: true,
     name,
     email,
@@ -108,11 +103,131 @@ router.post("/contactus", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-  res.render("login.ejs", shopData);
+  res.render("login.ejs", {
+    errors: []
+  });
 });
 
+router.post(
+  "/login",
+  [
+    check("username").notEmpty().withMessage("Username required"),
+    check("password").notEmpty().withMessage("Password required"),
+  ],
+  (req, res) => {
+    const { username, password } = req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.render("login.ejs", {
+        errors: errors.array(),
+      });
+    }
+
+    db.query(
+      `SELECT * FROM users WHERE username = ?`,
+      [username],
+      (err, results) => {
+        if (err) return next(err);
+
+        if (results.length === 0) {
+          return res.render("login.ejs", {
+            errors: [{ msg: "Invalid username or password!" }],
+          });
+        }
+
+        const user = results[0];
+
+        bcrypt.compare(password, user.hashedpassword, (err, match) => {
+          if (err) return next(err);
+
+          if (!match) {
+            return res.render("login.ejs", {
+              errors: [{ msg: "Invalid username or password!" }],
+            });
+          }
+
+          req.session.user = {
+            id: user.id,
+            forename: user.forename,
+            surname: user.surname,
+          };
+
+          res.redirect("/");
+        });
+      }
+    );
+  }
+);
+
 router.get("/signup", (req, res) => {
-  res.render("signup.ejs", shopData);
+  res.render("signup.ejs", {
+    errors: [],
+    submitted: false,
+  });
+});
+
+router.post(
+  "/signup",
+  [
+    check("forename").trim().notEmpty().withMessage("Forename required!"),
+    check("surname").trim().notEmpty().withMessage("Surname required!"),
+    check("username").trim().notEmpty().withMessage("Username required!"),
+    check("email").isEmail().withMessage("Invalid Email!"),
+    check("username")
+      .isLength({ min: 4, max: 20 })
+      .withMessage("Username must be between 4 - 20 characters!"),
+    check("password")
+      .isLength({ min: 5 })
+      .withMessage("Password must be at least 5 characters!"),
+    check("confirmpassword")
+      .custom((value, { req }) => value === req.body.password)
+      .withMessage("Passwords do not match!"),
+  ],
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.render("signup.ejs", {
+        submitted: false,
+        errors: errors.array(),
+      });
+    }
+
+    const { forename, surname, email, username, password, confirmpassword } =
+      req.body;
+
+    const saltrounds = 10;
+
+    bcrypt.hash(password, saltrounds, function (err, hashedpassword) {
+      if (err) return next(err);
+
+      const sqlquery = `
+            INSERT INTO users (forename, surname, email, username, hashedpassword) values (?, ?, ?, ?, ?)
+          `;
+      const newrecord = [forename, surname, email, username, hashedpassword];
+
+      db.query(sqlquery, newrecord, (err, result) => {
+        if (err) {
+          return next(err);
+        }
+
+        res.render("signup.ejs", {
+          submitted: true,
+          forename,
+          surname,
+          email,
+        });
+      });
+    });
+  }
+);
+
+router.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.redirect("./");
+    }
+    res.send("You are now logged out. <a href=" + "./" + ">Home</a>");
+  });
 });
 
 module.exports = router;

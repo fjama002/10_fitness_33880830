@@ -12,84 +12,89 @@
       <a class="navbutton" href="/classes">Classes</a>
       <a class="navbutton" href="/aboutus">About Us</a>
       <a class="navbutton" href="/contactus">Contact Us</a>
+      <% if (user) { %>
+      <a class="navbutton" href="/logout">Logout</a>
+      <% } else { %>
       <a class="navbutton" href="/login">Login</a>
+      <% } %>
     </nav>
     <header>
       <h1>Signup</h1>
     </header>
     <main>
-      <form>
+      <% if (submitted) { %>
+      <p class="submitted">
+        Hello <%= forename %> <%= surname%>! You have successfully signed up to
+        <%= shopName %>. We will send you a confirmation email at <%= email %>.
+        Please continute to login.
+      </p>
+      <% } %> <% if (errors && errors.length > 0) { %>
+      <div class="errors">
+        <% errors.forEach(err => { %>
+        <p class="errors"><%= err.msg %></p>
+        <% }) %>
+      </div>
+      <% } %>
+      <form method="POST" action="/signup">
         <div>
-          <p>
-            Forename:
-            <input
-              type="text"
-              id="forename"
-              name="forename"
-              placeholder="e.g. Muhammad"
-              required
-            />
-          </p>
+          <label for="forename">Forename: </label>
+          <input
+            type="text"
+            id="forename"
+            name="forename"
+            placeholder="e.g. Muhammad"
+            required
+          />
         </div>
         <div>
-          <p>
-            Surname:
-            <input
-              type="text"
-              id="surname"
-              name="surname"
-              placeholder="e.g. Ali"
-              required
-            />
-          </p>
+          <label for="surname">Surname: </label>
+          <input
+            type="text"
+            id="surname"
+            name="surname"
+            placeholder="e.g. Ali"
+            required
+          />
         </div>
         <div>
-          <p>
-            Email:
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="e.g. muhammadali@example.com"
-              required
-            />
-          </p>
+          <label for="email">Email: </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="e.g. muhammadali@example.com"
+            required
+          />
         </div>
         <div>
-          <p>
-            Username:
-            <input
-              type="text"
-              id="username"
-              name="username"
-              placeholder="Enter a username"
-              required
-            />
-          </p>
+          <label for="username">Username: </label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter a username"
+            required
+          />
         </div>
         <div>
-          <p>
-            Password:
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              required
-            />
-          </p>
+          <label for="password">Password: </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+          />
         </div>
         <div>
-          <p>
-            Confirm Password:
-            <input
-              type="password"
-              id="confirmpassword"
-              name="confirmpassword"
-              placeholder="Confirm your password"
-              required
-            />
-          </p>
+          <label for="confirmpassword">Confirm Password: </label>
+          <input
+            type="password"
+            id="confirmpassword"
+            name="confirmpassword"
+            placeholder="Confirm your password"
+            required
+          />
         </div>
         <div><button type="submit">Signup</button></div>
         <p>Already have an account? <a href="/login">Login</a></p>

@@ -12,36 +12,43 @@
       <a class="navbutton" href="/classes">Classes</a>
       <a class="navbutton" href="/aboutus">About Us</a>
       <a class="navbutton" href="/contactus">Contact Us</a>
+      <% if (user) { %>
+      <a class="navbutton" href="/logout">Logout</a>
+      <% } else { %>
       <a class="navbutton" href="/login">Login</a>
+      <% } %>
     </nav>
     <header>
       <h1>Login</h1>
     </header>
     <main>
-      <form>
+      <% if (errors && errors.length > 0) { %>
+      <div class="errors">
+        <% errors.forEach(err => { %>
+        <p class="errors"><%= err.msg %></p>
+        <% }) %>
+      </div>
+      <% } %>
+      <form method="POST" action="/login">
         <div>
-          <p>
-            Username:
-            <input
-              type="text"
-              id="username"
-              name="username"
-              placeholder="Enter your username"
-              required
-            />
-          </p>
+          <label for="username">Username: </label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter your username"
+            required
+          />
         </div>
         <div>
-          <p>
-            Password:
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              required
-            />
-          </p>
+          <label for="password">Password: </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+          />
         </div>
         <div><button type="submit">Login</button></div>
         <p>Don't have an account? <a href="/signup">Signup</a></p>
