@@ -1,6 +1,9 @@
 # Insert the data
 use health_fitness;
 
+insert ignore into users (username, hashedpassword) values 
+('gold', 'smiths');
+
 insert ignore into classes (name, duration_minutes) values 
 ('Cardio', 45), 
 ('Bootcamp', 60), 

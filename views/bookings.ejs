@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome to <%= shopName %></title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+
+  <body>
+    <nav class="navigation">
+      <a class="navbutton" href="/">Home</a>
+      <a class="navbutton" href="/gyms">Gyms</a>
+      <a class="navbutton" href="/classes">Classes</a>
+      <a class="navbutton" href="/aboutus">About Us</a>
+      <a class="navbutton" href="/contactus">Contact Us</a>
+      <% if (user) { %>
+      <a class="navbutton" href="/logout">Logout</a>
+      <% } else { %>
+      <a class="navbutton" href="/login">Login</a>
+      <% } %>
+    </nav>
+    <header>
+      <h1>Bookings</h1>
+    </header>
+    <main>
+      <% if (bookings.length === 0) { %>
+      <p>You haven’t booked any classes yet.</p>
+      <% } else { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Class</th>
+            <th>Day</th>
+            <th>Start</th>
+            <th>End</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% bookings.forEach(b => { const endTime = new
+          Date(`1970-01-01T${b.start_time}Z`);
+          endTime.setMinutes(endTime.getMinutes() + b.duration_minutes); %>
+          <tr>
+            <td><%= b.name %></td>
+            <td><%= b.day_of_week %></td>
+            <td><%= b.start_time.substring(0,5) %></td>
+            <td><%= endTime.toISOString().substring(11,16) %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } %>
+    </main>
+    <footer>
+      <p>&copy; <%= shopName %> 2025</p>
+      <p>Updated: December 2025</p>
+    </footer>
+  </body>
+</html>
