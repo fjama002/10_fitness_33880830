@@ -324,7 +324,7 @@ router.get("/logout", (req, res) => {
     if (err) {
       return res.redirect("./");
     }
-    res.send("You are now logged out. <a href=" + "./" + ">Home</a>");
+    res.render("login.ejs", { errors: [] });
   });
 });
 

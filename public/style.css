@@ -1,0 +1,137 @@
+body {
+  background-color: rgb(70, 75, 75);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1 {
+  padding: 10px;
+}
+
+h1,
+h2,
+h3,
+p {
+  color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  text-decoration: none;
+}
+
+.navigation {
+  background-color: rgb(60, 65, 65);
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.navbutton {
+  color: #f2f2f2;
+  display: block;
+  float: left;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 18px 20px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.navbutton:hover {
+  background: rgb(115, 150, 160);
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  padding: auto;
+}
+
+.errors {
+  color: rgb(200, 20, 20);
+}
+
+.submitted {
+}
+
+.aboutus {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+  max-width: 500px;
+  margin: auto;
+  padding: 10px;
+}
+
+img {
+  height: 200px;
+  width: 200px;
+}
+
+p {
+  line-height: 1.5;
+}
+
+div {
+  text-align: center;
+  padding: 10px;
+}
+
+a {
+  color: beige;
+}
+
+a:hover {
+  color: rgb(115, 150, 160);
+}
+
+form {
+  background-color: rgb(60, 65, 65);
+  color: white;
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: auto;
+  max-width: 425px;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+}
+
+label {
+  padding: auto;
+}
+
+input {
+  width: 350px;
+  padding: 3px 5px;
+}
+
+button {
+  background: rgb(60, 65, 65);
+  border-color: rgb(60, 65, 65);
+  border-radius: 5px;
+  color: white;
+  padding: 8px 10px;
+}
+
+button:hover {
+  background: rgb(115, 150, 160);
+  border-color: rgb(115, 150, 160);
+  border-radius: 5px;
+  color: black;
+}
+
+table {
+  color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: auto;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+}
+
+footer {
+  background-color: rgb(60, 65, 65);
+  margin-top: auto;
+  padding: 10px;
+}

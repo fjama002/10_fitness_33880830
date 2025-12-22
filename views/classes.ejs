@@ -36,63 +36,72 @@
         </form>
       </div>
       <% classes = classes || []; %>
-      <table>
-        <thead>
-          <tr>
-            <th>Day</th>
-            <th>Time</th>
-            <th>Class</th>
-            <th>Duration</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% if (classes && classes.length > 0) { %> <% classes.forEach(c => {%>
-          <tr>
-            <td><%=c.day_of_week %></td>
-            <td><%=c.start_time.substring(0,5) %></td>
-            <td><%=c.name %></td>
-            <td><%=c.duration_minutes %> mins</td>
-            <td>
-              <% if (!user) { %>
-              <a href="/login">Login to book</a>
+      <div>
+        <form>
+          <table>
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Time</th>
+                <th>Class</th>
+                <th>Duration</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (classes && classes.length > 0) { %> <% classes.forEach(c =>
+              {%>
+              <tr>
+                <td><%=c.day_of_week %></td>
+                <td><%=c.start_time.substring(0,5) %></td>
+                <td><%=c.name %></td>
+                <td><%=c.duration_minutes %> mins</td>
+                <td>
+                  <% if (!user) { %>
+                  <a href="/login">Login to book</a>
 
-              <% } else if (c.booking_id) { %>
-              <form method="POST" action="/cancel">
-                <input
-                  type="hidden"
-                  name="schedule_id"
-                  value="<%= c.schedule_id %>"
-                />
-                <button type="submit">Cancel</button>
-              </form>
+                  <% } else if (c.booking_id) { %>
+                  <form method="POST" action="/cancel">
+                    <input
+                      type="hidden"
+                      name="schedule_id"
+                      value="<%= c.schedule_id %>"
+                    />
+                    <button type="submit">Cancel</button>
+                  </form>
 
-              <% } else { %>
-              <form method="POST" action="/book">
-                <input
-                  type="hidden"
-                  name="schedule_id"
-                  value="<%= c.schedule_id %>"
-                />
-                <button type="submit">Book</button>
-              </form>
-              <% } %>
-            </td>
-          </tr>
-          <%})%> <%} else {%>
-          <tr>
-            <td colspan="4">No classes available at this time.</td>
-          </tr>
-          <%}%>
-        </tbody>
-      </table>
-      <form action="/bookings">
-        <button type="submit">My Bookings</button>
-      </form>
+                  <% } else { %>
+                  <form method="POST" action="/book">
+                    <input
+                      type="hidden"
+                      name="schedule_id"
+                      value="<%= c.schedule_id %>"
+                    />
+                    <button type="submit">Book</button>
+                  </form>
+                  <% } %>
+                </td>
+              </tr>
+              <%})%> <%} else {%>
+              <tr>
+                <td colspan="4">No classes available at this time.</td>
+              </tr>
+              <%}%>
+            </tbody>
+          </table>
+        </form>
+      </div>
+      <div>
+        <form action="/bookings">
+          <button type="submit">My Bookings</button>
+        </form>
+      </div>
     </main>
-    <footer>
-      <p>&copy; <%= shopName %> 2025</p>
-      <p>Updated: December 2025</p>
-    </footer>
+    <div>
+      <footer>
+        <p>&copy; <%= shopName %> 2025</p>
+        <p>Updated: December 2025</p>
+      </footer>
+    </div>
   </body>
 </html>
