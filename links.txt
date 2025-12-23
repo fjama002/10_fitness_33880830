@@ -1,0 +1,8 @@
+Login = http://www.doc.gold.ac.uk/usr/458/login
+Signup = http://www.doc.gold.ac.uk/usr/458/signup
+Home = http://www.doc.gold.ac.uk/usr/458/
+Gyms = http://www.doc.gold.ac.uk/usr/458/gyms
+Classes = http://www.doc.gold.ac.uk/usr/458/classes
+Bookings = http://www.doc.gold.ac.uk/usr/458/bookings
+About Us = http://www.doc.gold.ac.uk/usr/458/aboutus
+Contact Us = http://www.doc.gold.ac.uk/usr/458/contactus
