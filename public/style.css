@@ -32,7 +32,7 @@ p {
    ========================= */
 
 .navigation {
-  background-color: rgb(60, 65, 65);
+  background-color: rgb(55, 60, 60);
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -50,7 +50,7 @@ p {
 }
 
 .navbutton:hover {
-  background: rgb(115, 150, 160);
+  background: rgb(35, 115, 130);
   color: black;
 }
 
@@ -90,7 +90,7 @@ a {
 }
 
 a:hover {
-  color: rgb(115, 150, 160);
+  color: rgb(35, 115, 130);
 }
 
 /* =========================
@@ -139,8 +139,8 @@ button {
 }
 
 button:hover {
-  background: rgb(115, 150, 160);
-  border-color: rgb(115, 150, 160);
+  background: rgb(35, 115, 130);
+  border-color: rgb(35, 115, 130);
   color: black;
 }
 
