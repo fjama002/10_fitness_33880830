@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Page title with dynamic shop name -->
     <title>Welcome to <%= shopName %></title>
     <link rel="stylesheet" href="/style.css" />
   </head>
 
   <body>
+    <!-- Navigation bar rendered accordingly -->
     <nav class="navigation">
       <a class="navbutton" href="/">Home</a>
       <a class="navbutton" href="/gyms">Gyms</a>
       <a class="navbutton" href="/classes">Classes</a>
       <a class="navbutton" href="/aboutus">About Us</a>
       <a class="navbutton" href="/contactus">Contact Us</a>
+      <!-- Display login or logout based on user authentication -->
       <% if (user) { %>
       <a class="navbutton" href="/logout">Logout</a>
       <% } else { %>
@@ -22,6 +25,7 @@
       <h1>Login</h1>
     </header>
     <main>
+      <!-- If login is unsuccessful, display appropriate validation error message -->
       <% if (errors && errors.length > 0) { %>
       <div class="errors">
         <% errors.forEach(err => { %>
@@ -29,6 +33,7 @@
         <% }) %>
       </div>
       <% } %>
+      <!-- Login form with username and password input fields -->
       <form method="POST" action="/login">
         <div>
           <label for="username">Username: </label>
@@ -51,10 +56,12 @@
           />
         </div>
         <div><button type="submit">Login</button></div>
+        <!-- A switch between signup and logim, as displayed on many professional platforms -->
         <p>Don't have an account? <a href="/signup">Signup</a></p>
       </form>
     </main>
     <footer>
+      <!-- Footer with copyright and last updated information -->
       <p>&copy; <%= shopName %> 2025</p>
       <p>Updated: December 2025</p>
     </footer>

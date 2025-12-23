@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Page title with dynamic shop name -->
     <title>Welcome to <%= shopName %></title>
     <link rel="stylesheet" href="/style.css" />
   </head>
 
   <body>
+    <!-- Navigation bar rendered accordingly -->
     <nav class="navigation">
       <a class="navbutton" href="/">Home</a>
       <a class="navbutton" href="/gyms">Gyms</a>
       <a class="navbutton" href="/classes">Classes</a>
       <a class="navbutton" href="/aboutus">About Us</a>
       <a class="navbutton" href="/contactus">Contact Us</a>
+      <!-- Display login or logout based on user authentication -->
       <% if (user) { %>
       <a class="navbutton" href="/logout">Logout</a>
       <% } else { %>
@@ -22,19 +25,22 @@
       <h1>Signup</h1>
     </header>
     <main>
+      <!-- If signup was successful, display confirmation message: -->
       <% if (submitted) { %>
       <p class="submitted">
         Hello <%= forename %> <%= surname%>! You have successfully signed up to
         <%= shopName %>. We will send you a confirmation email at <%= email %>.
         Please continute to login.
       </p>
-      <% } %> <% if (errors && errors.length > 0) { %>
+      <!-- Else, display appropriate validation error message -->
+      <% } %> <% else if (errors && errors.length > 0) { %>
       <div class="errors">
         <% errors.forEach(err => { %>
-        <p class="errors"><%= err.msg %></p>
+        <p><%= err.msg %></p>
         <% }) %>
       </div>
       <% } %>
+      <!-- Signup form with forename, surname, email, username, password, confirm password input fields -->
       <form method="POST" action="/signup">
         <div>
           <label for="forename">Forename: </label>
@@ -97,10 +103,12 @@
           />
         </div>
         <div><button type="submit">Signup</button></div>
+        <!-- A switch between signup and logim, as displayed on many professional platforms -->
         <p>Already have an account? <a href="/login">Login</a></p>
       </form>
     </main>
     <footer>
+      <!-- Footer with copyright and last updated information -->
       <p>&copy; <%= shopName %> 2025</p>
       <p>Updated: December 2025</p>
     </footer>

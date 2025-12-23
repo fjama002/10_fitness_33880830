@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Page title with dynamic shop name -->
     <title>Welcome to <%= shopName %></title>
     <link rel="stylesheet" href="/style.css" />
   </head>
 
   <body>
+    <!-- Navigation bar rendered accordingly -->
     <nav class="navigation">
       <a class="navbutton" href="/">Home</a>
       <a class="navbutton" href="/gyms">Gyms</a>
       <a class="navbutton" href="/classes">Classes</a>
       <a class="navbutton" href="/aboutus">About Us</a>
       <a class="navbutton" href="/contactus">Contact Us</a>
+      <!-- Display login or logout based on user authentication -->
       <% if (user) { %>
       <a class="navbutton" href="/logout">Logout</a>
       <% } else { %>
@@ -22,14 +25,17 @@
       <h1>Bookings</h1>
     </header>
     <main>
+      <!-- If no bookings, display: -->
       <% if (bookings.length === 0) { %>
       <p>You haven’t booked any classes yet.</p>
       <% } else { %>
+      <!-- Else, display the following table: -->
       <div>
         <form>
           <table>
             <thead>
               <tr>
+                <!-- Column headings for bookings table -->
                 <th>Class</th>
                 <th>Day</th>
                 <th>Start</th>
@@ -37,10 +43,12 @@
               </tr>
             </thead>
             <tbody>
+              <!-- Calculate time classes end -->
               <% bookings.forEach(b => { const endTime = new
               Date(`1970-01-01T${b.start_time}Z`);
               endTime.setMinutes(endTime.getMinutes() + b.duration_minutes); %>
               <tr>
+                <!-- Row data for bookings table -->
                 <td><%= b.name %></td>
                 <td><%= b.day_of_week %></td>
                 <td><%= b.start_time.substring(0,5) %></td>
@@ -54,6 +62,7 @@
       <% } %>
     </main>
     <footer>
+      <!-- Footer with copyright and last updated information -->
       <p>&copy; <%= shopName %> 2025</p>
       <p>Updated: December 2025</p>
     </footer>

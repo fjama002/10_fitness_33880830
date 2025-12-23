@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Page title with dynamic shop name -->
     <title>Welcome to <%= shopName %></title>
     <link rel="stylesheet" href="/style.css" />
   </head>
 
   <body>
+    <!-- Navigation bar rendered accordingly -->
     <nav class="navigation">
       <a class="navbutton" href="/">Home</a>
       <a class="navbutton" href="/gyms">Gyms</a>
       <a class="navbutton" href="/classes">Classes</a>
       <a class="navbutton" href="/aboutus">About Us</a>
       <a class="navbutton" href="/contactus">Contact Us</a>
+      <!-- Display login or logout based on user authentication -->
       <% if (user) { %>
       <a class="navbutton" href="/logout">Logout</a>
       <% } else { %>
@@ -19,25 +22,31 @@
       <% } %>
     </nav>
     <header>
+      <!-- If user authenticated, display: -->
       <% if (user) { %>
       <h1>Welcome <%= user.forename %> to <%= shopName %></h1>
+      <!-- Else, display usual: -->
       <% } else { %>
       <h1>Welcome to <%= shopName %></h1>
       <% } %>
     </header>
     <main>
       <div>
+        <!-- Mini introduction -->
+        <h2>Our Aim</h2>
         <p>
-          Here at <%= shopName %>, we hope to support you and your journey
-          making you feel confident!
+          Here at <%= shopName %>, we aim to support you and your journey,
+          helping you grow in confidence in yourself and your abilities!
         </p>
       </div>
       <div>
+        <!-- Dynamic quotes to add some fun -->
         <h2>Quote of the Day</h2>
         <p><%= quote %></p>
       </div>
     </main>
     <footer>
+      <!-- Footer with copyright and last updated information -->
       <p>&copy; <%= shopName %> 2025</p>
       <p>Updated: December 2025</p>
     </footer>

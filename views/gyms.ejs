@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Page title with dynamic shop name -->
     <title>Gyms at <%= shopName %></title>
     <link rel="stylesheet" href="/style.css" />
   </head>
 
   <body>
+    <!-- Navigation bar rendered accordingly -->
     <nav class="navigation">
       <a class="navbutton" href="/">Home</a>
       <a class="navbutton" href="/gyms">Gyms</a>
       <a class="navbutton" href="/classes">Classes</a>
       <a class="navbutton" href="/aboutus">About Us</a>
       <a class="navbutton" href="/contactus">Contact Us</a>
+      <!-- Display login or logout based on user authentication -->
       <% if (user) { %>
       <a class="navbutton" href="/logout">Logout</a>
       <% } else { %>
@@ -22,10 +25,11 @@
       <h1>Gyms</h1>
     </header>
     <main>
-      <!-- Gym location listings with embedded map-->
       <h2>Locations</h2>
+      <!-- Change gyms to empty array if undefined -->
       <% gyms = gyms || []; %>
       <div>
+        <!-- Search bar as a form -->
         <form method="GET" action="/gyms">
           <label for="searchlocations">Search Locations: </label>
           <input
@@ -38,6 +42,7 @@
         </form>
       </div>
       <div>
+        <!-- Gym location listings with embedded map -->
         <% gyms.forEach(gym => { %>
         <h3><%= gym.city %></h3>
         <iframe
@@ -52,6 +57,7 @@
       </div>
     </main>
     <footer>
+      <!-- Footer with copyright and last updated information -->
       <p>&copy; <%= shopName %> 2025</p>
       <p>Updated: December 2025</p>
     </footer>

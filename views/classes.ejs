@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Page title with dynamic shop name -->
     <title>Classes at <%= shopName %></title>
     <link rel="stylesheet" href="/style.css" />
   </head>
 
   <body>
+    <!-- Navigation bar rendered accordingly -->
     <nav class="navigation">
       <a class="navbutton" href="/">Home</a>
       <a class="navbutton" href="/gyms">Gyms</a>
       <a class="navbutton" href="/classes">Classes</a>
       <a class="navbutton" href="/aboutus">About Us</a>
       <a class="navbutton" href="/contactus">Contact Us</a>
+      <!-- Display login or logout based on user authentication -->
       <% if (user) { %>
       <a class="navbutton" href="/logout">Logout</a>
       <% } else { %>
@@ -24,6 +27,7 @@
     <main>
       <h2>Weekly Schedule</h2>
       <div>
+        <!-- Search bar as a form -->
         <form method="GET" action="/classes">
           <label for="searchclasses">Search Classes: </label>
           <input
@@ -35,12 +39,14 @@
           <div><button type="submit">Search</button></div>
         </form>
       </div>
+      <!-- Change classes to empty array if undefined -->
       <% classes = classes || []; %>
       <div>
         <form>
           <table>
             <thead>
               <tr>
+                <!-- Column headings for classes table -->
                 <th>Day</th>
                 <th>Time</th>
                 <th>Class</th>
@@ -49,17 +55,20 @@
               </tr>
             </thead>
             <tbody>
+              <!-- If there are classes available, display classes table: -->
               <% if (classes && classes.length > 0) { %> <% classes.forEach(c =>
               {%>
               <tr>
+                <!-- Row data for classes table -->
                 <td><%=c.day_of_week %></td>
                 <td><%=c.start_time.substring(0,5) %></td>
                 <td><%=c.name %></td>
                 <td><%=c.duration_minutes %> mins</td>
                 <td>
+                  <!-- If user is NOT signed in, display login link -->
                   <% if (!user) { %>
                   <a href="/login">Login to book</a>
-
+                  <!-- Else if, display a cancel button if they booked a class -->
                   <% } else if (c.booking_id) { %>
                   <form method="POST" action="/cancel">
                     <input
@@ -69,7 +78,7 @@
                     />
                     <button type="submit">Cancel</button>
                   </form>
-
+                  <!-- Else, display a book button -->
                   <% } else { %>
                   <form method="POST" action="/book">
                     <input
@@ -82,6 +91,7 @@
                   <% } %>
                 </td>
               </tr>
+              <!-- Else, display unavailable message: -->
               <%})%> <%} else {%>
               <tr>
                 <td colspan="4">No classes available at this time.</td>
@@ -92,6 +102,7 @@
         </form>
       </div>
       <div>
+        <!-- Display bookings button (so user can see which classes they booked) -->
         <form action="/bookings">
           <button type="submit">My Bookings</button>
         </form>
@@ -99,6 +110,7 @@
     </main>
     <div>
       <footer>
+        <!-- Footer with copyright and last updated information -->
         <p>&copy; <%= shopName %> 2025</p>
         <p>Updated: December 2025</p>
       </footer>

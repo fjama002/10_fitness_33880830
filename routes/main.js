@@ -1,9 +1,14 @@
+// Core dependencies
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const { check, validationResult } = require("express-validator");
 
+// =========================
+// Home page
+// =========================
 router.get("/", (req, res) => {
+  // Quotes displayed randomly on the homepage
   const quoteoftheday = [
     "It's real sweat. I'm a high performance athlete. Athletes sweat. Sweat baby! Ki ki ki ra, sweat sweat, hu hu! - Daniel Ricciardo",
     "I drive fast. I drink coffee. Leave me alone. Sometimes at the same time. - Kimi Räikkönen",
@@ -17,6 +22,7 @@ router.get("/", (req, res) => {
     "I race fast, I party hard, I smile harder. Sweat, laughter, repeat! - Daniel Ricciardo",
   ];
 
+  // Select a random quote
   const randomquote =
     quoteoftheday[Math.floor(Math.random() * quoteoftheday.length)];
 
@@ -26,25 +32,28 @@ router.get("/", (req, res) => {
   });
 });
 
+// =========================
+// Gyms location page
+// =========================
 router.get("/gyms", (req, res, next) => {
   const searchlocations = req.query.searchlocations;
 
-  // Display all locations
+  // Base query to fetch all gym locations
   let sql = `
     SELECT * FROM locations
   `;
 
   const paramaters = [];
 
-  // Search through locations
+  // Optional city search filter
   if (searchlocations) {
     sql += " WHERE LOWER(city) LIKE ?";
     paramaters.push(`%${searchlocations.toLowerCase()}%`);
   }
 
-  // Render the page with the data
   db.query(sql, paramaters, (err, result) => {
     if (err) return next(err);
+
     res.render("gyms.ejs", {
       gyms: result,
       searchlocations,
@@ -52,11 +61,16 @@ router.get("/gyms", (req, res, next) => {
   });
 });
 
+// =========================
+// Classes & weekly schedule
+// =========================
 router.get("/classes", (req, res, next) => {
   const searchclasses = req.query.searchclasses;
+
+  // Logged-in user ID (0 if not logged in)
   const user_id = req.session.user?.user_id || 0;
 
-  // Display full weekly schedule
+  // Query includes booking info for logged-in users
   let sql = `
     SELECT s.schedule_id, c.name, c.duration_minutes, s.day_of_week, s.start_time,
            b.booking_id
@@ -68,13 +82,13 @@ router.get("/classes", (req, res, next) => {
 
   const paramaters = [];
 
-  // Search through weekly schedule
+  // Optional class name search
   if (searchclasses) {
     sql += " WHERE LOWER(c.name) LIKE ?";
     paramaters.push(`%${searchclasses.toLowerCase()}%`);
   }
 
-  // Ensures weekly schedule is displayed in order of time
+  // Order classes by day and start time
   sql += `
     ORDER BY FIELD(s.day_of_week, 
       'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'
@@ -93,17 +107,22 @@ router.get("/classes", (req, res, next) => {
   });
 });
 
+// =========================
+// Book a class
+// =========================
 router.post("/book", (req, res) => {
+  // Prevent booking without authentication
   if (!req.session.user) return res.redirect("/login");
 
   const user_id = req.session.user.user_id;
   const schedule_id = req.body.schedule_id;
 
   const sql = `
-  INSERT INTO bookings (user_id, schedule_id) VALUES (?, ?)
+    INSERT INTO bookings (user_id, schedule_id) VALUES (?, ?)
   `;
 
   db.query(sql, [user_id, schedule_id], (err, result) => {
+    // Handle duplicate booking attempts
     if (err) {
       if (err.code === "ER_DUP_ENTRY") {
         return res.send("You have already booked this class - how lucky!");
@@ -114,6 +133,9 @@ router.post("/book", (req, res) => {
   });
 });
 
+// =========================
+// Cancel a booking
+// =========================
 router.post("/cancel", (req, res) => {
   if (!req.session.user) return res.redirect("/login");
 
@@ -121,11 +143,13 @@ router.post("/cancel", (req, res) => {
   const schedule_id = req.body.schedule_id;
 
   const sql = `
-  DELETE FROM bookings WHERE user_id = ? AND schedule_id = ?
+    DELETE FROM bookings WHERE user_id = ? AND schedule_id = ?
   `;
 
   db.query(sql, [user_id, schedule_id], (err, result) => {
     if (err) return next(err);
+
+    // No booking found to cancel
     if (result.affectedRows === 0) {
       return res.send("You have not booked this class!");
     }
@@ -133,6 +157,9 @@ router.post("/cancel", (req, res) => {
   });
 });
 
+// =========================
+// User bookings page
+// =========================
 router.get("/bookings", (req, res) => {
   if (!req.session.user) return res.redirect("/login");
 
@@ -157,6 +184,9 @@ router.get("/bookings", (req, res) => {
   });
 });
 
+// =========================
+// Static content pages
+// =========================
 router.get("/aboutus", (req, res) => {
   res.render("aboutus.ejs");
 });
@@ -167,6 +197,9 @@ router.get("/contactus", (req, res) => {
   });
 });
 
+// =========================
+// Contact form submission
+// =========================
 router.post(
   "/contactus",
   [check("email").isEmail().withMessage("Invalid Email!")],
@@ -176,12 +209,10 @@ router.post(
     const message = req.sanitize(req.body.message);
 
     const sql = `
-    INSERT INTO contact_messages (name, email, message) VALUES (?, ?, ?)
-  `;
+      INSERT INTO contact_messages (name, email, message) VALUES (?, ?, ?)
+    `;
 
-    const newRecord = [name, email, message];
-
-    db.query(sql, newRecord, (err, result) => {
+    db.query(sql, [name, email, message], (err, result) => {
       if (err) return next(err);
 
       res.render("contactus.ejs", {
@@ -194,6 +225,9 @@ router.post(
   }
 );
 
+// =========================
+// Login
+// =========================
 router.get("/login", (req, res) => {
   res.render("login.ejs", {
     errors: [],
@@ -210,6 +244,7 @@ router.post(
     const username = req.sanitize(req.body.username);
     const password = req.sanitize(req.body.password);
 
+    // Handle validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.render("login.ejs", {
@@ -223,6 +258,7 @@ router.post(
       (err, results) => {
         if (err) return next(err);
 
+        // Username not found
         if (results.length === 0) {
           return res.render("login.ejs", {
             errors: [{ msg: "Invalid username or password!" }],
@@ -231,6 +267,7 @@ router.post(
 
         const user = results[0];
 
+        // Compare hashed passwords
         bcrypt.compare(password, user.hashedpassword, (err, match) => {
           if (err) return next(err);
 
@@ -240,6 +277,7 @@ router.post(
             });
           }
 
+          // Store user session data
           req.session.user = {
             user_id: user.user_id,
             forename: user.forename,
@@ -253,6 +291,9 @@ router.post(
   }
 );
 
+// =========================
+// Signup
+// =========================
 router.get("/signup", (req, res) => {
   res.render("signup.ejs", {
     errors: [],
@@ -292,33 +333,37 @@ router.post(
     const username = req.sanitize(req.body.username);
     const password = req.body.password;
 
-    const saltrounds = 10;
-
-    bcrypt.hash(password, saltrounds, function (err, hashedpassword) {
+    // Hash password before storing
+    bcrypt.hash(password, 10, (err, hashedpassword) => {
       if (err) return next(err);
 
       const sql = `
-            INSERT INTO users (forename, surname, email, username, hashedpassword) values (?, ?, ?, ?, ?)
-          `;
-      const newrecord = [forename, surname, email, username, hashedpassword];
+        INSERT INTO users (forename, surname, email, username, hashedpassword)
+        VALUES (?, ?, ?, ?, ?)
+      `;
 
-      db.query(sql, newrecord, (err, result) => {
-        if (err) {
-          return next(err);
+      db.query(
+        sql,
+        [forename, surname, email, username, hashedpassword],
+        (err, result) => {
+          if (err) return next(err);
+
+          res.render("signup.ejs", {
+            submitted: true,
+            errors: [],
+            forename,
+            surname,
+            email,
+          });
         }
-
-        res.render("signup.ejs", {
-          submitted: true,
-          errors: [],
-          forename,
-          surname,
-          email,
-        });
-      });
+      );
     });
   }
 );
 
+// =========================
+// Logout
+// =========================
 router.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
