@@ -33,7 +33,7 @@
         Please continute to login.
       </p>
       <!-- Else, display appropriate validation error message -->
-      <% } %> <% else if (errors && errors.length > 0) { %>
+      <% } %> <% if (errors && errors.length > 0) { %>
       <div class="errors">
         <% errors.forEach(err => { %>
         <p><%= err.msg %></p>
