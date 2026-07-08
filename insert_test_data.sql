@@ -1,8 +1,8 @@
 # Insert the data
-use health_fitness;
+use health;
 
-insert ignore into users (username, hashedpassword) values 
-('gold', 'smiths');
+insert ignore into users (forename, surname, email, username, hashedpassword) values 
+('Gold', 'Smiths', 'gold@smiths.com', 'gold', '$2b$10$YB1gUX5KdJc0sBxg.fCBceO32V2pWRjYuetwr0nvOBmfYNMXzqQpu');
 
 insert ignore into classes (name, duration_minutes) values 
 ('Cardio', 45), 

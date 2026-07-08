@@ -110,7 +110,7 @@ router.get("/classes", (req, res, next) => {
 // =========================
 // Book a class
 // =========================
-router.post("/book", (req, res) => {
+router.post("/book", (req, res, next) => {
   // Prevent booking without authentication
   if (!req.session.user) return res.redirect("/login");
 
@@ -136,7 +136,7 @@ router.post("/book", (req, res) => {
 // =========================
 // Cancel a booking
 // =========================
-router.post("/cancel", (req, res) => {
+router.post("/cancel", (req, res, next) => {
   if (!req.session.user) return res.redirect("/login");
 
   const user_id = req.session.user.user_id;
@@ -160,7 +160,7 @@ router.post("/cancel", (req, res) => {
 // =========================
 // User bookings page
 // =========================
-router.get("/bookings", (req, res) => {
+router.get("/bookings", (req, res, next) => {
   if (!req.session.user) return res.redirect("/login");
 
   const sql = `

@@ -17,9 +17,9 @@ const mysql = require("mysql2");
 // =========================
 const db = mysql.createPool({
   host: "localhost",
-  user: "health_fitness_app",
+  user: "health_app",
   password: "qwertyuiop",
-  database: "health_fitness",
+  database: "health",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
@@ -57,7 +57,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 600000, // Session expires after 10 minutes
+      maxAge: 600000, // Session expires after 10 minutes
     },
   })
 );

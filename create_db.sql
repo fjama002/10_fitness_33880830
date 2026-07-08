@@ -1,6 +1,6 @@
 # Create the database
-create database if not exists health_fitness;
-use health_fitness;
+create database if not exists health;
+use health;
 
 # Create the tables
 create table if not exists users (
@@ -49,5 +49,5 @@ create table if not exists contact_messages (
 );
 
 # Create the application user
-create user if not exists 'health_fitness_app'@'localhost' identified by 'qwertyuiop';
-grant all priveleges on health_fitness.* to 'health_fitness_app'@'localhost';
+create user if not exists 'health_app'@'localhost' identified by 'qwertyuiop';
+grant all privileges on health.* to 'health_app'@'localhost';
