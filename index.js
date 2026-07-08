@@ -1,3 +1,6 @@
+// Environment variables
+require("dotenv").config();
+
 // Template engine
 const ejs = require("ejs");
 
@@ -16,10 +19,10 @@ const mysql = require("mysql2");
 // Database connection pool
 // =========================
 const db = mysql.createPool({
-  host: "localhost",
-  user: "health_app",
-  password: "qwertyuiop",
-  database: "health",
+  host: process.env.HEALTH_HOST,
+  user: process.env.HEALTH_USER,
+  password: process.env.HEALTH_PASSWORD,
+  database: process.env.HEALTH_DATABASE,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
@@ -59,7 +62,7 @@ app.use(
     cookie: {
       maxAge: 600000, // Session expires after 10 minutes
     },
-  })
+  }),
 );
 
 // =========================
