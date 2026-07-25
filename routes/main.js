@@ -2,6 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const rateLimit = require("express-rate-limit");
 const { check, validationResult } = require("express-validator");
 
 // =========================
@@ -234,8 +235,23 @@ router.get("/login", (req, res) => {
   });
 });
 
+// Limits number of login attempts to 3 at a time
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 3,
+  message: "Too many login attempts. Please try again in 15 minutes.",
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: (req, res) => {
+  res.render("login.ejs", {
+    errors: [{ msg: "Too many login attempts. Please try again in 15 minutes." }],
+  });
+},
+});
+
 router.post(
   "/login",
+  loginLimiter,
   [
     check("username").notEmpty().withMessage("Username required"),
     check("password").notEmpty().withMessage("Password required"),
