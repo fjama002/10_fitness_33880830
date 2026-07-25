@@ -20,24 +20,24 @@ Health & Fitness is a gym booking app that allows users to explore gym locations
 - MySQL2 - connects node.js to MySQL database
 
 ## How to run locally
-1. Clone the repository: git clone https://github.com/fjama002/10_health_33880830
-2. Navigate to the project folder: cd 10_health_33880830
-3. Install dependencies: npm install
+1. Clone the repository: ```git clone https://github.com/fjama002/10_health_33880830```
+2. Navigate to the project folder: ```cd 10_health_33880830```
+3. Install dependencies: ```npm install```
 4. Create a .env file in the project root with the following:
-   HEALTH_HOST=localhost
-   HEALTH_USER=health_app
-   HEALTH_PASSWORD=qwertyuiop
-   HEALTH_DATABASE=health
-   HEALTH_BASE_PATH=http://localhost:8000
-   Note: These credentials are shown here only to match the values specified in the assignment brief, to make local installation straightforward for marking. .env is excluded from version control via .gitignore. In a real application, credentials would never be documented in a readme - they would be shared securely (e.g. a secrets manager or a private .env.example template with placeholder values) and rotated outside of source control entirely.
+   ```HEALTH_HOST=localhost```
+   ```HEALTH_USER=health_app```
+   ```HEALTH_PASSWORD=qwertyuiop```
+   ```HEALTH_DATABASE=health```
+   ```HEALTH_BASE_PATH=http://localhost:8000```
+   *Note: These credentials are shown here only to match the values specified in the assignment brief, to make local installation straightforward for marking. .env is excluded from version control via .gitignore. In a real application, credentials would never be documented in a readme - they would be shared securely (e.g. a secrets manager or a private .env.example template with placeholder values) and rotated outside of source control entirely.*
 5. Ensure databases and tables have been installed by running the following files in MySQL:
-- create_db.sql
-- insert_test_data.sql
+```create_db.sql```
+```insert_test_data.sql```
 6. Start the server: node index.js (in terminal, "Server running on: 8000" should be visible)
-7. Open preferred browser and search "http://localhost:8000"
+7. Open preferred browser and search http://localhost:8000
 
 ## Default Login
-Note: This username and password are provided to meet the assignment's requirement for a test login, and to make marking straightforward. Publishing login credentials in a readme is not a practice that would be followed in a real, production application.
+*Note: This username and password are provided to meet the assignment's requirement for a test login, and to make marking straightforward. Publishing login credentials in a readme is not a practice that would be followed in a real, production application.*
 * Username: gold
 * Password: smiths
 
