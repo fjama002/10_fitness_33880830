@@ -24,12 +24,12 @@ Health & Fitness is a gym booking app that allows users to explore gym locations
 2. Navigate to the project folder: ```cd 10_health_33880830```
 3. Install dependencies: ```npm install```
 4. Create a .env file in the project root with the following:  
+      *Note: These credentials are shown here only to match the values specified in the assignment brief, to make local installation straightforward for marking. .env is excluded from version control via .gitignore. In a real application, credentials would never be documented in a readme - they would be shared securely (e.g. a secrets manager or a private .env.example template with placeholder values) and rotated outside of source control entirely.*  
    ```HEALTH_HOST=localhost```  
    ```HEALTH_USER=health_app```  
    ```HEALTH_PASSWORD=qwertyuiop```  
    ```HEALTH_DATABASE=health```  
-   ```HEALTH_BASE_PATH=http://localhost:8000```  
-   *Note: These credentials are shown here only to match the values specified in the assignment brief, to make local installation straightforward for marking. .env is excluded from version control via .gitignore. In a real application, credentials would never be documented in a readme - they would be shared securely (e.g. a secrets manager or a private .env.example template with placeholder values) and rotated outside of source control entirely.*
+   ```HEALTH_BASE_PATH=http://localhost:8000```
 5. Ensure databases and tables have been installed by running the following files in MySQL:
 ```create_db.sql```
 ```insert_test_data.sql```
