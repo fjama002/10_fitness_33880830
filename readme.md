@@ -29,9 +29,9 @@ Health & Fitness is a gym booking app that allows users to explore gym locations
    ```HEALTH_USER=health_app```  
    ```HEALTH_PASSWORD=qwertyuiop```  
    ```HEALTH_DATABASE=health```  
-5. Ensure databases and tables have been installed by running the following files in MySQL:
-```create_db.sql```
-```insert_test_data.sql```
+5. Ensure databases and tables have been installed by running the following files in MySQL:  
+```create_db.sql```  
+```insert_test_data.sql```  
 6. Start the server: node index.js (in terminal, "Server running on: 8000" should be visible)
 7. Open preferred browser and search http://localhost:8000
 
