@@ -29,7 +29,6 @@ Health & Fitness is a gym booking app that allows users to explore gym locations
    ```HEALTH_USER=health_app```  
    ```HEALTH_PASSWORD=qwertyuiop```  
    ```HEALTH_DATABASE=health```  
-   ```HEALTH_BASE_PATH=http://localhost:8000```
 5. Ensure databases and tables have been installed by running the following files in MySQL:
 ```create_db.sql```
 ```insert_test_data.sql```
