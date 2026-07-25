@@ -23,7 +23,7 @@ Health & Fitness is a gym booking app that allows users to explore gym locations
 1. Clone the repository: ```git clone https://github.com/fjama002/10_health_33880830```
 2. Navigate to the project folder: ```cd 10_health_33880830```
 3. Install dependencies: ```npm install```
-4. Create a .env file in the project root with the following:
+4. Create a .env file in the project root with the following:  
    ```HEALTH_HOST=localhost```  
    ```HEALTH_USER=health_app```  
    ```HEALTH_PASSWORD=qwertyuiop```  
