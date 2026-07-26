@@ -3,24 +3,12 @@
   <head>
     <!-- Page title with dynamic shop name -->
     <title>Classes at <%= shopName %></title>
-    <link rel="stylesheet" href="/style.css" />
+    <%- include('partials/styles') %>
   </head>
 
   <body>
     <!-- Navigation bar rendered accordingly -->
-    <nav class="navigation">
-      <a class="navbutton" href="/">Home</a>
-      <a class="navbutton" href="/gyms">Gyms</a>
-      <a class="navbutton" href="/classes">Classes</a>
-      <a class="navbutton" href="/aboutus">About Us</a>
-      <a class="navbutton" href="/contactus">Contact Us</a>
-      <!-- Display login or logout based on user authentication -->
-      <% if (user) { %>
-      <a class="navbutton" href="/logout">Logout</a>
-      <% } else { %>
-      <a class="navbutton" href="/login">Login</a>
-      <% } %>
-    </nav>
+    <%- include('partials/nav') %>
     <header>
       <h1>Classes</h1>
     </header>
@@ -28,7 +16,7 @@
       <h2>Weekly Schedule</h2>
       <div>
         <!-- Search bar as a form -->
-        <form method="GET" action="/classes">
+        <form method="GET" action="<%= basePath %>/classes">
           <label for="searchclasses">Search Classes: </label>
           <input
             type="text"
@@ -66,10 +54,10 @@
                 <td>
                   <!-- If user is NOT signed in, display login link -->
                   <% if (!user) { %>
-                  <a href="/login">Login to book</a>
+                  <a href="<%= basePath %>/login">Login to book</a>
                   <!-- Else if, display a cancel button if they booked a class -->
                   <% } else if (c.booking_id) { %>
-                  <form method="POST" action="/cancel">
+                  <form method="POST" action="<%= basePath %>/cancel">
                     <input
                       type="hidden"
                       name="schedule_id"
@@ -79,7 +67,7 @@
                   </form>
                   <!-- Else, display a book button -->
                   <% } else { %>
-                  <form method="POST" action="/book">
+                  <form method="POST" action="<%= basePath %>/book">
                     <input
                       type="hidden"
                       name="schedule_id"
@@ -101,17 +89,13 @@
       </div>
       <div>
         <!-- Display bookings button (so user can see which classes they booked) -->
-        <form action="/bookings">
+        <form action="<%= basePath %>/bookings">
           <button type="submit">My Bookings</button>
         </form>
       </div>
     </main>
     <div>
-      <footer>
-        <!-- Footer with copyright and last updated information -->
-        <p>&copy; <%= shopName %> 2025</p>
-        <p>Updated: December 2025</p>
-      </footer>
+    <%- include('partials/footer') %>
     </div>
   </body>
 </html>

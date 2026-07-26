@@ -113,7 +113,7 @@ router.get("/classes", (req, res, next) => {
 // =========================
 router.post("/book", (req, res, next) => {
   // Prevent booking without authentication
-  if (!req.session.user) return res.redirect("/login");
+  if (!req.session.user) return res.redirect(`${res.locals.basePath}/login`);
 
   const user_id = req.session.user.user_id;
   const schedule_id = req.body.schedule_id;
@@ -130,7 +130,7 @@ router.post("/book", (req, res, next) => {
       }
       return next(err);
     }
-    res.redirect("/classes");
+    res.redirect(`${res.locals.basePath}/classes`);
   });
 });
 
@@ -138,7 +138,7 @@ router.post("/book", (req, res, next) => {
 // Cancel a booking
 // =========================
 router.post("/cancel", (req, res, next) => {
-  if (!req.session.user) return res.redirect("/login");
+  if (!req.session.user) return res.redirect(`${res.locals.basePath}/login`);
 
   const user_id = req.session.user.user_id;
   const schedule_id = req.body.schedule_id;
@@ -154,7 +154,7 @@ router.post("/cancel", (req, res, next) => {
     if (result.affectedRows === 0) {
       return res.send("You have not booked this class!");
     }
-    res.redirect("/classes");
+    res.redirect(`${res.locals.basePath}/classes`);
   });
 });
 
@@ -162,7 +162,7 @@ router.post("/cancel", (req, res, next) => {
 // User bookings page
 // =========================
 router.get("/bookings", (req, res, next) => {
-  if (!req.session.user) return res.redirect("/login");
+  if (!req.session.user) return res.redirect(`${res.locals.basePath}/login`);
 
   const sql = `
     SELECT c.name, s.day_of_week, s.start_time, c.duration_minutes
@@ -239,7 +239,6 @@ router.get("/login", (req, res) => {
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 3,
-  message: "Too many login attempts. Please try again in 15 minutes.",
   standardHeaders: true,
   legacyHeaders: false,
   handler: (req, res) => {
@@ -300,7 +299,7 @@ router.post(
             surname: user.surname,
           };
 
-          res.redirect("/");
+          res.redirect(`${res.locals.basePath}/`);
         });
       }
     );

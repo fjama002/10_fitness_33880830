@@ -76,6 +76,7 @@ const shopData = {
 app.use((req, res, next) => {
   res.locals.shopName = shopData.shopName;
   res.locals.user = req.session.user || null;
+  res.locals.basePath = process.env.HEALTH_BASE_PATH || "";
   next();
 });
 

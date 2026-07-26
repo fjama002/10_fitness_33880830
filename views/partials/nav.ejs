@@ -1,0 +1,12 @@
+<nav class="navigation">
+  <a class="navbutton" href="<%= basePath %>/">Home</a>
+  <a class="navbutton" href="<%= basePath %>/gyms">Gyms</a>
+  <a class="navbutton" href="<%= basePath %>/classes">Classes</a>
+  <a class="navbutton" href="<%= basePath %>/aboutus">About Us</a>
+  <a class="navbutton" href="<%= basePath %>/contactus">Contact Us</a>
+  <% if (user) { %>
+  <a class="navbutton" href="<%= basePath %>/logout">Logout</a>
+  <% } else { %>
+  <a class="navbutton" href="<%= basePath %>/login">Login</a>
+  <% } %>
+</nav>
