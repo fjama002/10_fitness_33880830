@@ -39,7 +39,7 @@ Health & Fitness is a gym booking app that allows users to explore gym locations
 ## Default Login
 *Note: This username and password are provided to meet the assignment's requirement for a test login, and to make marking straightforward. Publishing login credentials in a readme is not a practice that would be followed in a real, production application.*
 * Username: gold
-* Password: smiths
+* Password: smiths123ABC$
 
 ## Features
 ### Home

@@ -2,7 +2,7 @@
 use health;
 
 insert ignore into users (forename, surname, email, username, hashedpassword) values 
-('Gold', 'Smiths', 'gold@smiths.com', 'gold', '$2b$10$YB1gUX5KdJc0sBxg.fCBceO32V2pWRjYuetwr0nvOBmfYNMXzqQpu');
+('Gold', 'Smiths', 'gold@smiths.com', 'gold', '$2b$10$K2wUKhXzkBa/xfo39RkjeOef0iac/1EneoSEieEXUqcAkZBurTVXa');
 
 insert ignore into classes (name, duration_minutes) values 
 ('Cardio', 45), 

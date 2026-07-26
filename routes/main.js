@@ -325,10 +325,20 @@ router.post(
     check("email").isEmail().withMessage("Invalid Email!"),
     check("username")
       .isLength({ min: 4, max: 20 })
-      .withMessage("Username must be between 4 - 20 characters!"),
+      .withMessage("Username must be between 4 - 20 characters!")
+      .matches('^[A-Za-z0-9_.-]+$')
+      .withMessage("Username can only contain alphanumeric and standard symbols!"),
     check("password")
-      .isLength({ min: 5 })
-      .withMessage("Password must be at least 5 characters!"),
+      .isLength({ min: 8 })
+      .withMessage("Password must be at least 8 characters!")
+      .matches('[A-Z]')
+      .withMessage("Password must contain an uppercase letter!")
+      .matches('[a-z]')
+      .withMessage("Password must contain a lowercase letter!")
+      .matches('[0-9]')
+      .withMessage("Password must contain a number!")
+      .matches('[^a-zA-Z0-9]')
+      .withMessage("Password must contain a special character!"),
     check("confirmpassword")
       .custom((value, { req }) => value === req.body.password)
       .withMessage("Passwords do not match!"),
