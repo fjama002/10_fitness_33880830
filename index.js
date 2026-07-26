@@ -35,6 +35,7 @@ global.db = db;
 // App setup
 // =========================
 const app = express();
+app.set("trust proxy", 1);
 const port = 8000;
 
 // =========================
